@@ -1,4 +1,6 @@
 import discord
+import inspect
+from pprint import pprint
 
 bot = discord.Bot()
 
@@ -18,16 +20,27 @@ async def submit(ctx):
     await ctx.send_modal(modal)
     await modal.wait()
 
-    print(vars(modal))
+    pprint(vars(modal))
+    pprint(modal.to_dict())
+    pprint(f"{inspect.getmembers(modal)}\n")
 
     submission = modal.children[0].value
     channel = bot.get_channel(1392972779971678452)
     resp = await channel.send(
         content=f"{ctx.user.mention} li pana e toki ni:\n"
-        f"> {submission}\n"
+        f"> {submission}\n",
+    )
+    resp = await channel.send(
+        content=
         "sona ale pi lipu pana:\n"
         "```python\n"
         f"{vars(modal)}\n"
+        "```",
+    )
+    resp = await channel.send(
+        content=
+        "```python\n"
+        f"{modal.to_dict()}\n"
         "```",
     )
 
