@@ -18,11 +18,17 @@ async def submit(ctx):
     await ctx.send_modal(modal)
     await modal.wait()
 
+    print(vars(modal))
+
     submission = modal.children[0].value
     channel = bot.get_channel(1392972779971678452)
     resp = await channel.send(
         content=f"{ctx.user.mention} li pana e toki ni:\n"
-        f"> {submission}\n",
+        f"> {submission}\n"
+        "sona ale pi lipu pana:\n"
+        "```python\n"
+        f"{vars(modal)}\n"
+        "```",
     )
 
 class SubmitModal(discord.ui.Modal):
